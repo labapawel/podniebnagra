@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ChmurkaComponent } from './chmurka/chmurka.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChmurkaComponent
   ],
   imports: [
     BrowserModule,
