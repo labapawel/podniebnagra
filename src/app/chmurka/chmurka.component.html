@@ -1,4 +1,5 @@
 <div (click)="click()"
-    [ngClass]="{down: down}" >
+    [ngClass]="{down: down}"
+    [ngStyle]="{'transition':(speed+'ms top'), 'left':(left+'%')}">
   <img src="/assets/chmura.png" alt="" />
 </div>
