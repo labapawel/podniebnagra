@@ -7,7 +7,7 @@ import { Component, OnInit, Output } from '@angular/core';
   styleUrls: ['./chmurka.component.less']
 })
 
-
+// https://drive.google.com/drive/folders/141tzNWh85_kt0NEnqhLFdtTmtZ1mxzy0
 export class ChmurkaComponent implements OnInit {
 
 
@@ -26,8 +26,8 @@ export class ChmurkaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.speed = Math.floor(Math.random() * 7000)+7000;
-    this.left = Math.floor((Math.random() * 4)) * 20;
+    this.speed = Math.floor(Math.random() * 7000) + 7000;
+    this.left = Math.floor(Math.random() * 4) * 20;
     this._es.addItem(this);
     setTimeout( ()=>
        {
