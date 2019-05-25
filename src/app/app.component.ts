@@ -17,7 +17,7 @@ export class AppComponent {
     setInterval((ts) => {
       this.element.push(new Date());
       let dx = new Date().setSeconds(-20);
-      this.element = this.element.filter(e => e > dx);
+      this.element = this.element.filter(e => e > dx );
 
     }, 1000);   }
 
