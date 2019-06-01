@@ -17,6 +17,7 @@ export class ChmurkaComponent implements OnInit {
   speed = 3000; // w milisekundach
   left = 0;
   public isClick = false;
+  public addScore = 1;
 
   click()
   {
@@ -27,7 +28,8 @@ export class ChmurkaComponent implements OnInit {
 
   ngOnInit() {
     this.speed = Math.floor(Math.random() * 7000) + 7000;
-    this.left = Math.floor(Math.random() * 4) * 20;
+    this.left = Math.floor(Math.random() * 4) * 25;
+    this.addScore = Math.floor(Math.random() * 4) - 1;
     this._es.addItem(this);
     setTimeout( ()=>
        {
