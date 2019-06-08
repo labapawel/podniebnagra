@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChmurkaComponent } from './chmurka/chmurka.component';
 import { HeadComponent } from './head/head.component';
+import { StartGryComponent } from './start-gry/start-gry.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChmurkaComponent,
-    HeadComponent
+    HeadComponent,
+    StartGryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { EngineService } from './engine.service';
 import { Component, OnInit } from '@angular/core';
 import { element } from '@angular/core/src/render3';
 
@@ -12,13 +13,19 @@ export class AppComponent {
   element = [];
 
   x = 0;
+  czyNieGramy = false;
 
-  constructor() {
+  constructor(private engine: EngineService) {
+
+
+
     setInterval((ts) => {
-      this.element.push(new Date());
-      let dx = new Date().setSeconds(-20);
-      this.element = this.element.filter(e => e > dx );
-
+      if(this.engine.czyGramy)
+      {
+        this.element.push(new Date());
+        let dx = new Date().setSeconds(-20);
+        this.element = this.element.filter(e => e > dx );
+      }
     }, 1000);   }
 
 
