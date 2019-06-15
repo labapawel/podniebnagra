@@ -1,5 +1,5 @@
 import { EngineService } from './../engine.service';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-chmurka',
@@ -11,7 +11,12 @@ import { Component, OnInit, Output } from '@angular/core';
 export class ChmurkaComponent implements OnInit {
 
 
-  constructor(private _es:EngineService) { }
+  @Input() uid:any;
+
+  constructor(private _es:EngineService) {
+
+
+   }
 
   down = false;
   speed = 3000; // w milisekundach
@@ -31,6 +36,7 @@ export class ChmurkaComponent implements OnInit {
     this.left = Math.floor(Math.random() * 4) * 25;
     this.addScore = Math.floor(Math.random() * 4) - 1;
     this._es.addItem(this);
+  ///  console.log("id:" +this.uid);
     setTimeout( ()=>
        {
           this.down = true;

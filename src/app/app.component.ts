@@ -22,8 +22,16 @@ export class AppComponent {
     setInterval((ts) => {
       if(this.engine.czyGramy)
       {
-        this.element.push(new Date());
-        let dx = new Date().setSeconds(-20);
+        this.element.push(new Date().getTime() + 20000);
+        let dx = new Date().getTime();
+
+        let testElemenow = this.element.filter(e => e < dx );
+
+        console.log(dx);
+        console.log(this.element.length);
+
+        this.engine.CheckClick(testElemenow);
+
         this.element = this.element.filter(e => e > dx );
       }
     }, 1000);   }

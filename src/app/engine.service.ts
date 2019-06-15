@@ -26,6 +26,24 @@ export class EngineService {
     this.isGame.next(this.czyGramy);
   }
 
+  public CheckClick(idItems)
+  {
+    console.log(idItems);
+    idItems.forEach(element => {
+      let elems = this.lists.filter(e => e.uid == element);
+      if(elems.length > 0)
+      {
+        elems.forEach(x => {
+          this._score -= x.addScore;
+        })
+      }
+
+    });
+
+
+    this.score.next(this._score);
+  }
+
   public Click(item: ChmurkaComponent) {
     if (this.lists.filter(e => e === item).length == 1) {
       this._score += item.addScore;
@@ -33,6 +51,12 @@ export class EngineService {
       this.lists = this.lists.filter(e => e != item);
     }
   }
+
+  public koniecGry()
+  {
+
+  }
+
 
   public addItem(item: ChmurkaComponent) {
     this.lists.push(item);
