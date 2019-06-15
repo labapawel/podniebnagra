@@ -32,6 +32,7 @@ export class AppComponent {
 
         this.engine.CheckClick(testElemenow);
 
+        this.engine.czyKoniec();
         this.element = this.element.filter(e => e > dx );
       }
     }, 1000);   }

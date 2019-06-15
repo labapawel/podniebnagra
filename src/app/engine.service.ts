@@ -10,7 +10,8 @@ export class EngineService {
   lists: Array<ChmurkaComponent> = [];
   score = new BehaviorSubject<number>(0);
   czyGramy: boolean = false;
-  czasGry = 120; // 120 sekund
+  czyKonczymy: boolean = false;
+  czasGry = 30; // 120 sekund
   czasStartu: Date;
 
   isGame = new BehaviorSubject<boolean>(this.czyGramy);
@@ -50,6 +51,16 @@ export class EngineService {
       this.score.next(this._score);
       this.lists = this.lists.filter(e => e != item);
     }
+  }
+
+  public czyKoniec()
+  {
+    this.czyKonczymy = moment(this.czasStartu).diff(new Date(), 'second') <= 0;
+    if(this.czyKonczymy && this.czyGramy)
+      {
+        this.czyGramy = false;
+      }
+    return this.czyGramy && this.czyKonczymy;
   }
 
   public koniecGry()
