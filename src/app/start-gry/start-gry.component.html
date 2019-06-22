@@ -1,3 +1,7 @@
-<div [ngClass]="{start:true, show: czyNieGramy}" >
-  <img src="/assets/owce.png" alt="" (click)="startGry()">
+<div [ngClass]="{ start: true, show: czyNieGramy }">
+  <img src="/assets/owce.png" alt="" (click)="startGry()" />
+
+  <div>
+    <input type="text" [(ngModel)]="nickname" >
+  </div>
 </div>

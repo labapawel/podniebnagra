@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { ChmurkaComponent } from "./chmurka/chmurka.component";
 import { BehaviorSubject } from "rxjs";
 import * as moment from 'moment';
+import { ReturnStatement } from '@angular/compiler';
+
 
 @Injectable({
   providedIn: "root"
@@ -10,21 +13,37 @@ export class EngineService {
   lists: Array<ChmurkaComponent> = [];
   score = new BehaviorSubject<number>(0);
   czyGramy: boolean = false;
-  czyKonczymy: boolean = false;
-  czasGry = 30; // 120 sekund
+  czyKonczymy = false;
+  czasGry = 20; // 120 sekund
   czasStartu: Date;
 
   isGame = new BehaviorSubject<boolean>(this.czyGramy);
 
 
   private _score = 0;
-  constructor() {}
+  constructor(private sendScore: HttpClient) {}
 
-  startGry()
+  czyKoniec()
   {
+    this.czyKonczymy = moment(this.czasStartu).diff(new Date(), 'second') <= 0;
+    if(this.czyKonczymy && this.czyGramy)
+      {
+        this.czyGramy = false;
+      }
+    return this.czyGramy && this.czyKonczymy;
+  }
+
+  startGry(nickname)
+  {
+    if(nickname.trim() == "" )
+      return;
+
+    localStorage.setItem('nickname', nickname);
+
     this.czyGramy = true;
     this.czasStartu = moment().add(this.czasGry, 'seconds').toDate();
     this.isGame.next(this.czyGramy);
+
   }
 
   public CheckClick(idItems)
@@ -53,19 +72,22 @@ export class EngineService {
     }
   }
 
-  public czyKoniec()
-  {
-    this.czyKonczymy = moment(this.czasStartu).diff(new Date(), 'second') <= 0;
-    if(this.czyKonczymy && this.czyGramy)
-      {
-        this.czyGramy = false;
-      }
-    return this.czyGramy && this.czyKonczymy;
-  }
-
   public koniecGry()
   {
 
+  }
+
+  public czasGryWylicz()
+  {
+    this.czyGramy = moment(this.czasStartu).diff(new Date(), 'second') > 0;
+    if(!this.czyGramy)
+    {
+      this.sendScore.post('http://score.wsi.edu.pl/scores',
+      {alias: localStorage.getItem('nickname'), score: this._score}).subscribe(
+        e => {}
+      );
+    }
+  //  this.isGame.next(this.czyGramy);
   }
 
 
