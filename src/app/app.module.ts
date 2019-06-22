@@ -7,6 +7,8 @@ import { ChmurkaComponent } from './chmurka/chmurka.component';
 import { HeadComponent } from './head/head.component';
 import { StartGryComponent } from './start-gry/start-gry.component';
 import { KoniecGryComponent } from './koniec-gry/koniec-gry.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { KoniecGryComponent } from './koniec-gry/koniec-gry.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

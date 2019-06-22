@@ -1,3 +1,9 @@
 <div [ngClass]="{start:true, show: czyNieGramy}" >
   <img src="/assets/owce.png" alt="" (click)="startGry()">
+
+  <div>
+    <label for="#nick">nickname</label>
+    <p [hidden]="nickname != ''">Wypełnij pole nick</p>
+    <input type="text" id="nick" required [(ngModel)]="nickname"  class="" >
+  </div>
 </div>

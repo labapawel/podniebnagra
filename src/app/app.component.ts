@@ -24,14 +24,9 @@ export class AppComponent {
       {
         this.element.push(new Date().getTime() + 20000);
         let dx = new Date().getTime();
-
         let testElemenow = this.element.filter(e => e < dx );
-
-        console.log(dx);
-        console.log(this.element.length);
-
         this.engine.CheckClick(testElemenow);
-
+        this.engine.czasGryWylicz();
         this.element = this.element.filter(e => e > dx );
       }
     }, 1000);   }
