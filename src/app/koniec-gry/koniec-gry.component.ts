@@ -1,3 +1,4 @@
+import { EngineService } from './../engine.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KoniecGryComponent implements OnInit {
 
-  constructor() { }
+  koniecGry = false;
+  constructor(private engine: EngineService) {
+
+    this.engine.endGame.asObservable().subscribe(e => {
+      if (e !== false) {
+        this.koniecGry = true;
+      } else {
+        this.koniecGry = false;
+      }
+    });
+
+   }
+
+
+
 
   ngOnInit() {
   }

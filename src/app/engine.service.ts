@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ChmurkaComponent } from "./chmurka/chmurka.component";
 import { BehaviorSubject } from "rxjs";
-import * as moment from 'moment';
-import { ReturnStatement } from '@angular/compiler';
-
+import * as moment from "moment";
+import { ReturnStatement } from "@angular/compiler";
 
 @Injectable({
   providedIn: "root"
@@ -17,38 +16,33 @@ export class EngineService {
   czasStartu: Date;
 
   isGame = new BehaviorSubject<boolean>(this.czyGramy);
-
+  endGame = new BehaviorSubject<any>(false);
 
   private _score = 0;
   constructor(private sendScore: HttpClient) {}
 
-  startGry(nickname)
-  {
-    if(nickname.trim() == "" )
-      return;
+  startGry(nickname) {
+    if (nickname.trim() == "") return;
 
-    localStorage.setItem('nickname', nickname);
+    localStorage.setItem("nickname", nickname);
 
     this.czyGramy = true;
-    this.czasStartu = moment().add(this.czasGry, 'seconds').toDate();
+    this.czasStartu = moment()
+      .add(this.czasGry, "seconds")
+      .toDate();
     this.isGame.next(this.czyGramy);
-
   }
 
-  public CheckClick(idItems)
-  {
+  public CheckClick(idItems) {
     console.log(idItems);
     idItems.forEach(element => {
       let elems = this.lists.filter(e => e.uid == element);
-      if(elems.length > 0)
-      {
+      if (elems.length > 0) {
         elems.forEach(x => {
           this._score -= x.addScore;
-        })
+        });
       }
-
     });
-
 
     this.score.next(this._score);
   }
@@ -61,24 +55,24 @@ export class EngineService {
     }
   }
 
-  public koniecGry()
-  {
+  public koniecGry() {}
 
-  }
-
-  public czasGryWylicz()
-  {
-    this.czyGramy = moment(this.czasStartu).diff(new Date(), 'second') > 0;
-    if(!this.czyGramy)
-    {
-      this.sendScore.post('http://10.10.0.55:3003/scores',
-      {alias: localStorage.getItem('nickname'), score: this._score}).subscribe(
-        e => {}
-      );
+  public czasGryWylicz() {
+    this.czyGramy = moment(this.czasStartu).diff(new Date(), "second") > 0;
+    if (!this.czyGramy) {
+      setTimeout(() => {
+        this.sendScore
+          .post("http://score.wsi.edu.pl/scores?limit=10", {
+            alias: localStorage.getItem("nickname"),
+            score: this._score
+          })
+          .subscribe(e => {
+            this.endGame.next(e);
+          });
+      }, 15000);
     }
-  //  this.isGame.next(this.czyGramy);
+    //  this.isGame.next(this.czyGramy);
   }
-
 
   public addItem(item: ChmurkaComponent) {
     this.lists.push(item);
